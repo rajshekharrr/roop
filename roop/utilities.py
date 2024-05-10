@@ -39,16 +39,16 @@ def detect_fps(target_path: str) -> float:
         return numerator / denominator
     except Exception:
         pass
-    return 30
+    return 10
 
 
-def extract_frames(target_path: str, fps: float = 30) -> bool:
+def extract_frames(target_path: str, fps: float = 10) -> bool:
     temp_directory_path = get_temp_directory_path(target_path)
     temp_frame_quality = roop.globals.temp_frame_quality * 31 // 100
     return run_ffmpeg(['-hwaccel', 'auto', '-i', target_path, '-q:v', str(temp_frame_quality), '-pix_fmt', 'rgb24', '-vf', 'fps=' + str(fps), os.path.join(temp_directory_path, '%04d.' + roop.globals.temp_frame_format)])
 
 
-def create_video(target_path: str, fps: float = 30) -> bool:
+def create_video(target_path: str, fps: float = 10) -> bool:
     temp_output_path = get_temp_output_path(target_path)
     temp_directory_path = get_temp_directory_path(target_path)
     output_video_quality = (roop.globals.output_video_quality + 1) * 51 // 100
